@@ -10,7 +10,10 @@ textarea {
   resize: none;
   color: #000000;
   border-left: 1px solid black;
-  padding: 10px;
+  font-size: 40px;
+  padding: 17px;
+  height: inherit;
+  flex: 9;
 }
 
 .jumbotron {
@@ -33,21 +36,13 @@ textarea {
 .row {
   white-space: pre-wrap;
   height: 80px;
-  border: 1px solid grey;
   border-top: 1px solid white;
 }
 
 .hour {
-  border: 2px solid black;
-  border-left: none;
   background-color: #ffffff;
   color: #000000;
   border-top: 1px dashed #000000;
-  font-size: 20px;
-  border-right: 1px solid black;
-  flex: 1;
-  text-align: right;
-  padding: 10px 5px 0 0;
 }
 
 .past {
@@ -71,22 +66,40 @@ textarea {
   border-bottom-right-radius: 15px;
   background-color: #06aed5;
   color: white;
-  flex: 1;
-  height: 60px;
-  border-bottom: white;
+  height: inherit;
+  /* background-image: url("img/lock.png");
+  background-repeat: no-repeat;
+  background-position: center; */
 }
 
 .saveBtn i:hover {
   font-size: 20px;
   transition: all 0.3s ease-in-out;
 }
-.entry {
-  background-color: grey;
-  font-size: 44px;
-  padding: 8px;
-  height: auto;
-  flex: 10;
-}
 .contain {
-  margin: -15px;
+  height: 80px;
+  margin-bottom: 2px;
+}
+.evententry {
+  width: 100%;
+  background-color: grey;
+  font-size: 40px;
+  padding: 17px;
+  height: inherit;
+  flex: 9;
+}
+.timestamp {
+  font-size: 20px;
+  height: inherit;
+  padding-top: 10px;
+  padding-right: 10px;
+  flex: 1;
+  text-align: right;
+  font-weight: bold;
+}
+
+@media (max-width: 990px) {
+  .timestamp {
+    font-size: 15px;
+  }
 }

@@ -95,6 +95,7 @@ $(".container").on("blur",".textarea",function(){
     $(this).replaceWith(task)
     //no changes made after triggering textarea change the color of button back to normal
     var ggg;
+    var boolean  = false;
     tasks.forEach(el =>{
         if(el.id === hour){
             ggg = el.text
@@ -105,9 +106,26 @@ $(".container").on("blur",".textarea",function(){
         //console.log("no changes made")
         $(hourid).children("button").css("background","#06aed5")
         $(hourid).children("button").html("Lock") 
-    }else if(!text){
-        $(hourid).children("button").css("background","#06aed5")
-        $(hourid).children("button").html("Lock") 
+    }else{
+        if(boolean === false && !text){
+            $(hourid).children("button").css("background","#06aed5")
+            $(hourid).children("button").html("Lock") 
+        }else{
+            console.log("text was changed to empty")
+        }
+        // if(text)
+        // console.log("already filled was clicked and left")
+        // $(hourid).children("button").css("background","#06aed5")
+        // $(hourid).children("button").html("Lock") 
+    }
+
+    var currenthour = moment().hour();
+    if(parseInt(hour)<currenthour){
+        task.css("background","grey")
+    }else if(parseInt(hour) === currenthour){
+        task.css("background","red")
+    }else{
+        task.css("background","green")
     }
 })
 $(".container").on("click",".lock", function(){

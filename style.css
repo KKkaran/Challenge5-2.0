@@ -96,7 +96,10 @@ textarea {
   text-align: right;
   font-weight: bold;
 }
-
+#currentDay {
+  color: red;
+  font-size: 40px;
+}
 @media (max-width: 990px) {
   .timestamp {
     font-size: 15px;

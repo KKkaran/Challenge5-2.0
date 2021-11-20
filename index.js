@@ -1,11 +1,9 @@
 var tasks = []//list of all the  updated tasks objects
 var timetable = []//list derived from local storage at the time of page refresh
-
 //try to get the current day using moment.js and update #currentDay
 var currentDay = moment().format("dddd, MMMM DD YYYY")
 $("#currentDay").html(currentDay)
 //present the time blocks for the day
-
 function getHours(){
     for(let a=0;a<9;a++){
         createTimeBlock(a+9)
@@ -40,6 +38,39 @@ function createTimeBlock(hour){
     $(".container").append(containerSlot)
 
 }
+function colorCoding(){
+    var currentHour = moment().hour()
+    console.log(currentHour)
+    for(var t=9;t<=17;t++){
+        if(t < currentHour){
+            $(`#${t}`).children(".evententry").css("background","grey")
+        }else if(t === currentHour){
+            $(`#${t}`).children(".evententry").css("background","red")
+        }else{
+            $(`#${t}`).children(".evententry").css("background","green")
+        }
+    }
+}
+//locally store the updated tasks
+function saveTasks(){
+    localStorage.setItem("schedule",JSON.stringify(tasks))
+}
+function loadTasks(){
+    var task = localStorage.getItem("schedule")
+    if(!task){
+        //console.log("nothing")
+        return
+    }
+    timetable = JSON.parse(task)
+    tasks = timetable
+    timetable.forEach(element => {
+        var hour = element.id
+        var text = element.text
+        var hourid = `#${hour}`
+        $(hourid).children(".evententry").html(text)
+    });
+    console.log(timetable)
+}
 //modify on task click
 $(".container").on("click",".evententry",function(){
     
@@ -55,7 +86,6 @@ $(".container").on("click",".evententry",function(){
     textarea.trigger("focus")
 })
 $(".container").on("blur",".textarea",function(){
-    
     var text = $(this).val().trim()
     var hour = $(this).closest("div").attr("id")
     var hourid = `#${hour}`
@@ -64,11 +94,9 @@ $(".container").on("blur",".textarea",function(){
                 html(text)
     $(this).replaceWith(task)
     //no changes made after triggering textarea change the color of button back to normal
-    // if(){
     var ggg;
     tasks.forEach(el =>{
         if(el.id === hour){
-            
             ggg = el.text
             boolean = true
         }
@@ -82,36 +110,11 @@ $(".container").on("blur",".textarea",function(){
         $(hourid).children("button").html("Lock") 
     }
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 $(".container").on("click",".lock", function(){
-
     $(this).closest("div").children("button").css("background","#06aed5")
     $(this).closest("div").children("button").html("Lock")
-
     var text = $(this).closest("div").children(".evententry").text().trim()
     var hour = $(this).closest("div").attr("id")
-    
     var ggg;
     var index = -1;
     var myindex
@@ -140,15 +143,12 @@ $(".container").on("click",".lock", function(){
             }
         }
     }
-
     if(boolean){
         tasks[index][ggg]
-    
         //console.log(`index is: ${index}`)
         var obj = {}
         obj.id = hour
         obj.text = text
-    
         tasks.splice(myindex,1,obj)
     }else{
         var obj = {}
@@ -156,36 +156,8 @@ $(".container").on("click",".lock", function(){
         obj.text = text
         tasks.push(obj)
     }
-    
     saveTasks() 
 })
-
-
-//locally store the updated tasks
-//$(this).closest("div").children("button").css("background","red")
-//$(this).closest("div").children("button").html("Save")
-function saveTasks(){
-    localStorage.setItem("schedule",JSON.stringify(tasks))
-}
-function loadTasks(){
-
-    var task = localStorage.getItem("schedule")
-    if(!task){
-        //console.log("nothing")
-        return
-    }
-
-    timetable = JSON.parse(task)
-    tasks = timetable
-    timetable.forEach(element => {
-        var hour = element.id
-        var text = element.text
-        var hourid = `#${hour}`
-        $(hourid).children(".evententry").html(text)
-
-    });
-    console.log(timetable)
-}
-
 getHours()
 loadTasks();
+colorCoding();

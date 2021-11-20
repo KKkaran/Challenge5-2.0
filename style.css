@@ -100,6 +100,9 @@ textarea {
   color: red;
   font-size: 40px;
 }
+.wish {
+  color: #1f93ff;
+}
 @media (max-width: 990px) {
   .timestamp {
     font-size: 15px;

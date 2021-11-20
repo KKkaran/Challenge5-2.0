@@ -40,6 +40,13 @@ function createTimeBlock(hour){
 }
 function colorCoding(){
     var currentHour = moment().hour()
+    if(currentHour < 12){
+        $(".wish").html("Good Morning!!")
+    }else if(currentHour < 18){
+        $(".wish").html("Good Afternoon!!")
+    }else{
+        $(".wish").html("Good Evening!!")
+    }
     console.log(currentHour)
     for(var t=9;t<=17;t++){
         if(t < currentHour){
@@ -50,6 +57,7 @@ function colorCoding(){
             $(`#${t}`).children(".evententry").css("background","green")
         }
     }
+
 }
 //locally store the updated tasks
 function saveTasks(){
@@ -113,12 +121,7 @@ $(".container").on("blur",".textarea",function(){
         }else{
             console.log("text was changed to empty")
         }
-        // if(text)
-        // console.log("already filled was clicked and left")
-        // $(hourid).children("button").css("background","#06aed5")
-        // $(hourid).children("button").html("Lock") 
     }
-
     var currenthour = moment().hour();
     if(parseInt(hour)<currenthour){
         task.css("background","grey")
